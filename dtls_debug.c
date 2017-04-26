@@ -34,6 +34,7 @@
 
 #include "global.h"
 #include "dtls_debug.h"
+#include "openthread/platform/alarm.h"
 
 #ifndef min
 #define min(a,b) ((a) < (b) ? (a) : (b))
@@ -42,11 +43,11 @@
 static int maxlog = DTLS_LOG_WARN;	/* default maximum log level */
 
 const char *dtls_package_name() {
-  return PACKAGE_NAME;
+  return "PACKAGE_NAME";
 }
 
 const char *dtls_package_version() {
-  return PACKAGE_VERSION;
+  return "PACKAGE_VERSION";
 }
 
 log_t 
@@ -80,13 +81,16 @@ print_timestamp(char *s, size_t len, time_t t) {
 #else /* alternative implementation: just print the timestamp */
 
 static inline size_t
-print_timestamp(char *s, size_t len, clock_time_t t) {
+print_timestamp(char *s, size_t len, uint32_t t) {
 #ifdef HAVE_SNPRINTF
   return snprintf(s, len, "%u.%03u", 
 		  (unsigned int)(t / CLOCK_SECOND), 
 		  (unsigned int)(t % CLOCK_SECOND));
 #else /* HAVE_SNPRINTF */
   /* @todo do manual conversion of timestamp */
+  (void) len;
+  (void) t;
+  (void) s;
   return 0;
 #endif /* HAVE_SNPRINTF */
 }
@@ -195,8 +199,11 @@ dsrv_print_addr(const session_t *addr, char *buf, size_t len) {
 
   return p - buf;
 # else /* WITH_CONTIKI */
+  (void) len;
+  (void) buf;
+  (void) addr;
   /* TODO: output addresses manually */
-#   warning "inet_ntop() not available, network addresses will not be included in debug output"
+//#   warning "inet_ntop() not available, network addresses will not be included in debug output"
 # endif /* WITH_CONTIKI */
   return 0;
 #endif
@@ -216,7 +223,7 @@ dsrv_log(log_t level, char *format, ...) {
 
   log_fd = level <= DTLS_LOG_CRIT ? stderr : stdout;
 
-  if (print_timestamp(timebuf,sizeof(timebuf), time(NULL)))
+  if (print_timestamp(timebuf,sizeof(timebuf), otPlatAlarmGetNow()))
     fprintf(log_fd, "%s ", timebuf);
 
   if (level <= DTLS_LOG_DEBUG) 
@@ -298,7 +305,7 @@ dtls_dsrv_hexdump_log(log_t level, const char *name, const unsigned char *buf, s
 
   log_fd = level <= DTLS_LOG_CRIT ? stderr : stdout;
 
-  if (print_timestamp(timebuf, sizeof(timebuf), time(NULL)))
+  if (print_timestamp(timebuf, sizeof(timebuf), otPlatAlarmGetNow()))
     fprintf(log_fd, "%s ", timebuf);
 
   if (level <= DTLS_LOG_DEBUG) 
