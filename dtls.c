@@ -20,6 +20,8 @@
 #include "tinydtls.h"
 #include "dtls_time.h"
 
+#include "openthread/platform/random.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef HAVE_ASSERT_H
@@ -3909,8 +3911,9 @@ dtls_new_context(void *app_data) {
   dtls_context_t *c;
   dtls_tick_t now;
 #ifndef WITH_CONTIKI
-  FILE *urandom = fopen("/dev/urandom", "r");
-  unsigned char buf[sizeof(unsigned long)];
+  //FILE *urandom = fopen("/dev/urandom", "r");
+  //unsigned char buf[sizeof(unsigned long)];
+  uint32_t urandom = otPlatRandomGet();
 #endif /* WITH_CONTIKI */
 
   dtls_ticks(&now);
@@ -3923,13 +3926,13 @@ dtls_new_context(void *app_data) {
     return NULL;
   }
 
-  if (fread(buf, 1, sizeof(buf), urandom) != sizeof(buf)) {
-    dtls_emerg("cannot initialize PRNG\n");
-    return NULL;
-  }
+  //if (fread(buf, 1, sizeof(buf), urandom) != sizeof(buf)) {
+  //  dtls_emerg("cannot initialize PRNG\n");
+  //  return NULL;
+  //}
 
-  fclose(urandom);
-  dtls_prng_init((unsigned long)*buf);
+  //fclose(urandom);
+  dtls_prng_init(urandom);
 #endif /* WITH_CONTIKI */
 
   c = malloc_context();
