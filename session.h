@@ -26,8 +26,7 @@
 typedef struct {
 	uint8_t size;
 	otIp6Address addr;
-	uint16_t port;
-	uint8_t ifindex;
+	otMessageInfo messageInfo;
 } session_t;
 
 /*

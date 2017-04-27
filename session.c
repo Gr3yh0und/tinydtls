@@ -26,7 +26,13 @@
 #endif
 
 
-#define _dtls_address_equals_impl(A,B)((A)->addr.mFields.m8 == (B)->addr.mFields.m8)
+int _dtls_address_equals_impl(const session_t *a, const session_t *b){
+	if(otIp6IsAddressEqual(&a->messageInfo.mPeerAddr,&b->messageInfo.mPeerAddr) && a->messageInfo.mPeerPort == b->messageInfo.mPeerPort){
+		return 0;
+	}else{
+		return 1;
+	}
+}
 
 #ifdef WITH_CONTIKI
 #define _dtls_address_equals_impl(A,B)				\
