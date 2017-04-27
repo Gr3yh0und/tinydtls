@@ -21,7 +21,16 @@
 
 #include "tinydtls.h"
 #include "global.h"
+#include "openthread/ip6.h"
 
+typedef struct {
+	uint8_t size;
+	otIp6Address addr;
+	uint16_t port;
+	uint8_t ifindex;
+} session_t;
+
+/*
 #ifdef WITH_CONTIKI
 #include "ip/uip.h"
 typedef struct {
@@ -31,14 +40,14 @@ typedef struct {
   int ifindex;
 } session_t;
 
-#else /* WITH_CONTIKI */
+#else
 
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
 typedef struct {
-  socklen_t size;		/**< size of addr */
+  socklen_t size;
   union {
     struct sockaddr     sa;
     struct sockaddr_storage st;
@@ -47,7 +56,7 @@ typedef struct {
   } addr;
   uint8_t ifindex;
 } session_t;
-#endif /* WITH_CONTIKI */
+#endif*/ /* WITH_CONTIKI */
 
 /** 
  * Resets the given session_t object @p sess to its default

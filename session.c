@@ -25,6 +25,9 @@
 #endif
 #endif
 
+
+#define _dtls_address_equals_impl(A,B)((A)->addr.mFields.m8 == (B)->addr.mFields.m8)
+
 #ifdef WITH_CONTIKI
 #define _dtls_address_equals_impl(A,B)				\
   ((A)->size == (B)->size					\
@@ -33,7 +36,7 @@
    && (A)->ifindex == (B)->ifindex)
 
 #else /* WITH_CONTIKI */
-
+/*
 static inline int 
 _dtls_address_equals_impl(const session_t *a,
 			  const session_t *b) {
@@ -41,7 +44,7 @@ _dtls_address_equals_impl(const session_t *a,
       a->size != b->size || a->addr.sa.sa_family != b->addr.sa.sa_family)
     return 0;
   
-  /* need to compare only relevant parts of sockaddr_in6 */
+
  switch (a->addr.sa.sa_family) {
  case AF_INET:
    return 
@@ -52,12 +55,13 @@ _dtls_address_equals_impl(const session_t *a,
    return a->addr.sin6.sin6_port == b->addr.sin6.sin6_port && 
      memcmp(&a->addr.sin6.sin6_addr, &b->addr.sin6.sin6_addr, 
 	    sizeof(struct in6_addr)) == 0;
- default: /* fall through and signal error */
+ default:
    ;
  }
  return 0;
-}
+}*/
 #endif /* WITH_CONTIKI */
+
 
 void
 dtls_session_init(session_t *sess) {
@@ -70,4 +74,5 @@ int
 dtls_session_equals(const session_t *a, const session_t *b) {
   assert(a); assert(b);
   return _dtls_address_equals_impl(a, b);
+  //return 0;
 }
