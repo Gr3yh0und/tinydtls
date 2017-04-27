@@ -35,6 +35,7 @@
 #include "global.h"
 #include "dtls_debug.h"
 #include "openthread/platform/alarm.h"
+#include "openthread/platform/logging.h"
 
 #ifndef min
 #define min(a,b) ((a) < (b) ? (a) : (b))
@@ -217,6 +218,8 @@ dsrv_log(log_t level, char *format, ...) {
   static char timebuf[32];
   va_list ap;
   FILE *log_fd;
+
+  otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d: %s", otPlatAlarmGetNow(), format);
 
   if (maxlog < (int)level)
     return;

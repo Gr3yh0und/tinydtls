@@ -36,7 +36,7 @@
 #define DTLS_CONF_PSK 1
 #endif
 #if DTLS_CONF_PSK
-//#define DTLS_PSK
+#define DTLS_PSK
 #endif
 
 #ifdef CONTIKI
