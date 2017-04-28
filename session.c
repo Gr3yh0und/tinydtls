@@ -27,10 +27,10 @@
 
 
 int _dtls_address_equals_impl(const session_t *a, const session_t *b){
-	if(otIp6IsAddressEqual(&a->messageInfo.mPeerAddr,&b->messageInfo.mPeerAddr) && a->messageInfo.mPeerPort == b->messageInfo.mPeerPort){
-		return 0;
-	}else{
+	if(otIp6IsAddressEqual(&a->messageInfo.mPeerAddr,&b->messageInfo.mPeerAddr) && (a->messageInfo.mPeerPort == b->messageInfo.mPeerPort)){
 		return 1;
+	}else{
+		return 0;
 	}
 }
 
