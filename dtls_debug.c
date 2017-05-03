@@ -215,31 +215,26 @@ dsrv_print_addr(const session_t *addr, char *buf, size_t len) {
 #ifndef WITH_CONTIKI
 void 
 dsrv_log(log_t level, char *format, ...) {
-  //static char timebuf[32];
-  va_list ap;
-  //FILE *log_fd;
+	/*static char timebuf[32];
+	va_list ap;
+	FILE *log_fd;
 
-  char buf[512];
-//  snprintf(buf, sizeof buf, format, );
-  //otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d: %s", otPlatAlarmGetNow(), format);
+	if (maxlog < level)
+	return;
 
-//  if (maxlog < (int)level)
-//    return;
+	log_fd = level <= DTLS_LOG_CRIT ? stderr : stdout;
 
-//  log_fd = level <= DTLS_LOG_CRIT ? stderr : stdout;
+	if (print_timestamp(timebuf,sizeof(timebuf), time(NULL)))
+	fprintf(log_fd, "%s ", timebuf);
 
-//  if (print_timestamp(timebuf,sizeof(timebuf), otPlatAlarmGetNow()))
-//    fprintf(log_fd, "%s ", timebuf);
+	if (level <= DTLS_LOG_DEBUG)
+	fprintf(log_fd, "%s ", loglevels[level]);
 
-//  if (level <= DTLS_LOG_DEBUG)
-//    fprintf(log_fd, "%s ", loglevels[level]);
-
-  va_start(ap, format);
-  vsprintf(buf, format, ap);
-  va_end(ap);
-  otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d:%s: %s", otPlatAlarmGetNow(), loglevels[level], buf);
-  (void) level;
-  //fflush(log_fd);
+	va_start(ap, format);
+	vfprintf(log_fd, format, ap);
+	va_end(ap);
+	fflush(log_fd);*/
+	otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d:%s: %s", otPlatAlarmGetNow(), loglevels[level], format);
 }
 #elif defined (HAVE_VPRINTF) /* WITH_CONTIKI */
 void 

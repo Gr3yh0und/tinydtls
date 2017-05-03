@@ -417,7 +417,6 @@ libtinydtls_a_CPPFLAGS = \
 			 -DDTLS_PEERS_NOHASH                  \
 			 -DSHA2_USE_INITTYPES_H               \
 			 -DWITH_SHA256                        \
-			 -DDTLS_PSK                           \
 			 -DHAVE_SYS_TIME_H                    \
 			 -DHAVE_VPRINTF                       \
 			 $(CPPFLAGS)                          \
