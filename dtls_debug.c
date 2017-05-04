@@ -234,7 +234,13 @@ dsrv_log(log_t level, char *format, ...) {
 	vfprintf(log_fd, format, ap);
 	va_end(ap);
 	fflush(log_fd);*/
-	otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d:%s: %s", otPlatAlarmGetNow(), loglevels[level], format);
+	static char buf[128];
+	va_list ap;
+	va_start(ap, format);
+	vsprintf(buf, format, ap);
+	va_end(ap);
+	buf[strcspn(buf, "\n")] = 0;
+	otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d(%s):%s", otPlatAlarmGetNow(), loglevels[level], buf);
 }
 #elif defined (HAVE_VPRINTF) /* WITH_CONTIKI */
 void 
