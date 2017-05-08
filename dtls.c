@@ -192,7 +192,7 @@ free_context(dtls_context_t *context) {
 void
 dtls_init(void) {
   dtls_clock_init();
-  crypto_init();
+  dtls_crypto_init();
   netq_init();
   peer_init();
 }

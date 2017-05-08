@@ -35,7 +35,7 @@
  */
 
 #ifdef WITH_CONTIKI
-#include "clock.h"
+#include "sys/clock.h"
 #else /* WITH_CONTIKI */
 #include <time.h>
 

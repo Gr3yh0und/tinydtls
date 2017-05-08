@@ -1,9 +1,9 @@
 # This is a -*- Makefile -*-
 
-CFLAGS += -DDTLSv12 -DWITH_SHA256
-tinydtls_src = dtls.c crypto.c hmac.c rijndael.c sha2.c ccm.c netq.c ecc.c dtls_time.c peer.c session.c
+CFLAGS += -DDTLSv12 -DWITH_SHA256 -DWITH_CONTIKI -DSHA2_USE_INTTYPES_H=1
+tinydtls_src = dtls.c dtls_crypto.c hmac.c rijndael.c sha2.c dtls_ccm.c netq.c ecc.c dtls_time.c peer.c session.c
 
 # This activates debugging support
-# CFLAGS += -DNDEBUG
+CFLAGS += -DNDEBUG
 tinydtls_src += dtls_debug.c
 
