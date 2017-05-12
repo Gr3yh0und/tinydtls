@@ -25,7 +25,7 @@
 #define DTLS_CONF_ECC 1
 #endif
 #if DTLS_CONF_ECC
-//#define DTLS_ECC
+#define DTLS_ECC
 #endif
 
 /* support for TLS_PSK_WITH_AES_128_CCM_8 */
