@@ -37,6 +37,10 @@
 #include "openthread/platform/alarm.h"
 #include "openthread/platform/logging.h"
 
+#if OPENTHREAD_ENABLE_COAPS_CLI == 0
+#define otPlatLog(...)
+#endif
+
 #ifndef min
 #define min(a,b) ((a) < (b) ? (a) : (b))
 #endif
@@ -241,6 +245,7 @@ dsrv_log(log_t level, char *format, ...) {
 	va_end(ap);
 	buf[strcspn(buf, "\n")] = 0;
 	otPlatLog(kLogLevelDebg, kLogRegionPlatform, "%d(%s):%s", otPlatAlarmGetNow(), loglevels[level], buf);
+	(void) level;
 }
 #elif defined (HAVE_VPRINTF) /* WITH_CONTIKI */
 void 
