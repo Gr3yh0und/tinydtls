@@ -3916,7 +3916,7 @@ dtls_new_context(void *app_data) {
   dtls_ticks(&now);
 #ifdef WITH_CONTIKI
   /* FIXME: need something better to init PRNG here */
-  dtls_prng_init(now);
+  //dtls_prng_init(now);
 #else /* WITH_CONTIKI */
   if (!urandom) {
     dtls_emerg("cannot initialize PRNG\n");
