@@ -20,7 +20,6 @@ EXTRA_DIST              = \
 			  uthash.h \
 			  utlist.h \
 			  aes/rijndael.h \
-			  ecc/ecc.h \
 			  sha2/sha2.h \
 			  $(NULL)
 
@@ -51,7 +50,6 @@ libtinydtls_a_SOURCES  = \
 			 peer.c \
 			 session.c \
 			 aes/rijndael.c \
-			 ecc/ecc.c \
 			 sha2/sha2.c \
 			 $(NULL)
 
@@ -75,7 +73,6 @@ noinst_HEADERS          =  \
 			   uthash.h \
 			   utlist.h \
 			   aes/rijndael.h \
-			   ecc/ecc.h \
 			   sha2/sha2.h \
 			   $(NULL)
 
