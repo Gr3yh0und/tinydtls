@@ -21,7 +21,7 @@
 
 #include "tinydtls.h"
 #include "dtls_time.h"
-#include "openthread/platform/alarm.h"
+//#include "openthread/platform/alarm.h"
 
 #ifdef WITH_CONTIKI
 clock_time_t dtls_clock_offset;
@@ -61,7 +61,8 @@ void dtls_ticks(dtls_tick_t *t) {
   //gettimeofday(&tv, NULL);
   //*t = (tv.tv_sec - dtls_clock_offset) * DTLS_TICKS_PER_SECOND
     //+ (tv.tv_usec * DTLS_TICKS_PER_SECOND / 1000000);
-  *t = otPlatAlarmGetNow();
+  //*t = otPlatAlarmGetNow();
+	*t = 0;
 #else
 #error "clock not implemented"
 #endif
